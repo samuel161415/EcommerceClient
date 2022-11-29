@@ -1,13 +1,20 @@
 import Remove from '@mui/icons-material/Remove'
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import styled from 'styled-components'
 import { Announcement } from '../Components/Announcement'
 import { Footer } from '../Components/Footer'
 import Navbar from '../Components/Navbar'
 import Add from '@mui/icons-material/Add'
 import {mobile} from '../Responsive'
+import { useSelector } from 'react-redux'
+import StripeCheckout from 'react-stripe-checkout'
+import { userRequest } from '../requestMethods'
+import { useNavigate } from 'react-router-dom'
+
+const KEY="pk_test_51Ljk6xFst8SiIJX32SRgcX8Xwory5nBfIx8dTtkAYmXZIgW0P9do8zQotbLjmKd4xZ6AZYNM2xapXUvhpCmjpCln00YdK2HvYI";
 const Container=styled.div``
 const Wrapper=styled.div`
+
    padding:20px;
    ${mobile({padding:"10px"})}
 `
@@ -130,7 +137,7 @@ const SummaryItem=styled.div`
   font-weight:${props=>props.type==='total'&&"500"};
   font-size:${props=>props.type==='total'&&"24px"};
   `
-const summaryItemText=styled.span`
+const SummaryItemText=styled.span`
 
 `
 const SummaryItemPrice=styled.span``
@@ -144,6 +151,37 @@ const Button=styled.button`
 
 `
 export const Cart = () => {
+
+  //const KEY= process.env.STRIPE_KEY
+  
+  const cart=useSelector(state=>state.cart);
+  const [stripeToken,setStripeToken]=useState(null)
+  const navigate = useNavigate()
+  const onToken=(token)=>{
+    setStripeToken(token);
+  }
+
+  useEffect(()=>{
+    const makeRequest=async()=>{
+      try{
+         const res= await userRequest.post('/checkout/payment',{
+          tokenId:stripeToken.id,
+          amount:cart.total*100,
+         
+         });
+         navigate('/success',{data:res.data});
+      }
+      catch(err){
+
+      }
+      
+    }
+    stripeToken && cart.total>=1&& makeRequest();
+
+  },[stripeToken,cart.total,navigate])
+  //console.log("token",stripeToken)
+
+  //console.log("cart",cart);
   return (
     <Container>
       <Navbar />
@@ -166,89 +204,78 @@ export const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
-            <ProductDetails>
-              <Image src='https://media.istockphoto.com/photos/men-fashion-black-shoes-leather-isolated-on-a-white-background-picture-id1222731107?k=20&m=1222731107&s=612x612&w=0&h=HJT2qEgfTANjix-N1iKyTpf-tzP1QJ4s-aWd40NZGR0='/>
-              <Details>
-                <ProductName><b>Product:</b> SAMI LESSOR SHOES</ProductName>
-                <ProductId><b>ID:</b> 96934854</ProductId>
-                <ProductColor color="black" />
-                <ProductSize><b>Size:</b> 37.8</ProductSize>
-
-              </Details>
-            </ProductDetails>
-            <PriceDetails>
-              <ProductAmountContainer>
-                <Add />
-                <ProductAmount>
-                    2
-                </ProductAmount>
-                <Remove /> 
-              </ProductAmountContainer>
-              <ProductPrice>30$</ProductPrice>
-            </PriceDetails>
-            </Product>
-            <Hr />
-            <Product>
-            <ProductDetails>
-              <Image src='https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHNob2VzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'/>
-              <Details>
-                <ProductName><b>Product:</b> SAMI FASHIO SHOES</ProductName>
-                <ProductId><b>ID:</b> 96934854</ProductId>
-                <ProductColor color="gray" />
-                <ProductSize><b>Size:</b> 37.8</ProductSize>
-
-              </Details>
-            </ProductDetails>
-            <PriceDetails>
-              <ProductAmountContainer>
-                <Add />
-                <ProductAmount>
-                    2
-                </ProductAmount>
-                <Remove /> 
-              </ProductAmountContainer>
-              <ProductPrice>40$</ProductPrice>
-            </PriceDetails>
-            </Product>
+          {cart.products?.map((product,index)=>(
+                <Product key={index}>
+                <ProductDetails>
+                  <Image src={product.img}/>
+                  <Details>
+                    <ProductName><b>Product:</b>{product.title}</ProductName>
+                    <ProductId><b>ID:</b> {product._id}</ProductId>
+                    <ProductColor color={product.color} />
+                    <ProductSize><b>Size:</b> {product.size}</ProductSize>
+                  </Details>
+                </ProductDetails>
+                <PriceDetails>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>
+                        {product.quantity}
+                    </ProductAmount>
+                    <Remove /> 
+                  </ProductAmountContainer>
+                  <ProductPrice>$ {product.price*product.quantity}</ProductPrice>
+                </PriceDetails>
+                </Product>
+                ))} 
           </Info>
           <Summary>
             <SummaryTitle>
                ORDER SUMMARY
             </SummaryTitle>
             <SummaryItem>
-              <summaryItemText>
+              <SummaryItemText>
                 Subtotal 
-              </summaryItemText>
+              </SummaryItemText>
               <SummaryItemPrice>
-                $80
+                ${cart.total}
               </SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <summaryItemText>
+              <SummaryItemText>
                 Estimated Shipping 
-              </summaryItemText>
+              </SummaryItemText>
               <SummaryItemPrice>
-                $5.90
+                $ 5.90
               </SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <summaryItemText>
+              <SummaryItemText>
                 Shipping Discount 
-              </summaryItemText>
+              </SummaryItemText>
               <SummaryItemPrice>
                 $ -5.90 
               </SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
-              <summaryItemText>
+              <SummaryItemText>
                 Total 
-              </summaryItemText>
+              </SummaryItemText>
               <SummaryItemPrice >
-                $80
+                ${cart.total}
               </SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="Sami Shop"
+              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>

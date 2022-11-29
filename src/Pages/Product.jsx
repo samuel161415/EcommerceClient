@@ -1,5 +1,5 @@
 import { Announcement } from '../Components/Announcement'
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import styled from 'styled-components'
 import { Footer } from '../Components/Footer'
 import { Newsletter } from '../Components/Newsletter'
@@ -7,6 +7,11 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Navbar from '../Components/Navbar'
 import {mobile} from '../Responsive'
+import { useLocation } from 'react-router-dom'
+import { publicRequest } from '../requestMethods'
+import { addProduct } from '../redux/cartRedux'
+import { useDispatch } from 'react-redux'
+
 const Container=styled.div`
 
 `
@@ -65,7 +70,7 @@ const FilterColor=styled.div`
   background-color:${props=>props.color};
   height:20px;
   width:20px;
-  margin:0px 5px;
+  margin:0px 3px;
   cursor:pointer;
 `
 const FilterSize=styled.select`
@@ -112,6 +117,35 @@ const Button=styled.button`
   }
 `
 export const Product = () => {
+
+  const [product,setProduct]=useState({});
+  const location=useLocation();
+  const id=location.pathname.split('/')[2]
+  const [quantity ,setQuantity]=useState(1);
+  const [color ,setColor]=useState('');
+  const [size ,setSize]=useState('');
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    const getProduct=async()=>{
+      try{
+        const res=await publicRequest.get('/products/find/'+id);
+        setProduct(res.data);
+      }
+      catch(err){
+      }
+   
+    }
+    getProduct();
+  },[id]);
+ 
+  console.log("size",size);
+   const handleClick=()=>{ 
+    // update our card
+    
+    dispatch(addProduct({...product,quantity,color,size}));
+       
+   }
+
   return (
     <Container>
         <Navbar />
@@ -119,53 +153,56 @@ export const Product = () => {
         <Wrapper>
           <Left >
             <ImageContainer>
-            <Image src='https://images.unsplash.com/flagged/photo-1571366992968-15b65708ee76?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80' />
+            <Image src={product.img} />
             </ImageContainer>
           </Left>
           <Right>
             <InfoContainer>
             <Title>
-               Summer cloth
+               {product.title}
             </Title>
             <Desc>
-                All summer cloth products are here with different
-                choise. feel free to buy and enjoy
+                {product.desc}
             </Desc>
             <Price>
-                $20
+                ${product.price}
             </Price>
              <FilterContainer>
                 <Filter>
                     <FilterTitle>
-                        Color
+                       Color
                     </FilterTitle>
-                    <FilterColor color='black' />
-                    <FilterColor color='blue' />
-                    <FilterColor color='gray' />
+                    {
+                      product.color?.map((item)=>(
+                        <FilterColor color={item} key={item} onClick={()=>setColor(item)}/>
+                      ))
+                    }
                 </Filter>
                 <Filter>
                     <FilterTitle>
                         Size
                     </FilterTitle>
-                    <FilterSize>
-                        <FilterSizeOption>Xs</FilterSizeOption>
-                        <FilterSizeOption>S</FilterSizeOption>
-                        <FilterSizeOption>M</FilterSizeOption>
-                        <FilterSizeOption>L</FilterSizeOption>
-                        <FilterSizeOption>XL</FilterSizeOption>
+                    <FilterSize onChange={(e)=>(setSize(e.target.value))}>
+                        {product.size?.map((item)=>(
+                          <FilterSizeOption key={item}>{item}</FilterSizeOption>
+                        ))}
                     </FilterSize>
                 </Filter>
             </FilterContainer>
             <AddContainer>
               <AmountContainer>
-                <RemoveIcon />
+                <RemoveIcon onClick={()=>{
+                  quantity>1&&setQuantity(quantity-1);
+                }}/>
                 <Amount>
-                  1
+                  {quantity}
                 </Amount>
-                <AddIcon />
+                <AddIcon onClick={()=>{
+                  setQuantity(quantity+1);
+                }} />
               </AmountContainer>
               <ButtonContainer>
-                <Button> ADD TO CART</Button>
+                <Button onClick={handleClick}> ADD TO CART</Button>
               </ButtonContainer>
              
             </AddContainer>
@@ -175,5 +212,5 @@ export const Product = () => {
         <Newsletter />
         <Footer />
     </Container>
-  ) 
+  )  
 }

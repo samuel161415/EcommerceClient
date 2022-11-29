@@ -106,22 +106,22 @@ export const Footer = () => {
                Links to our site
              </Title>
              <List>
-              <ListItem>
+              <ListItem key="1">
                 Home
               </ListItem>
-              <ListItem>
+              <ListItem key="2">
                 Cart
               </ListItem>
-              <ListItem>
+              <ListItem key="3">
                 Man fashion
               </ListItem>
-              <ListItem>
+              <ListItem key="4">
                 My acount
               </ListItem>
-              <ListItem>
+              <ListItem key="5">
                 Women fashion
               </ListItem>
-              <ListItem>
+              <ListItem key="6">
                 Terms
               </ListItem>
              </List>

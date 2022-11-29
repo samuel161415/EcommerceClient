@@ -17,7 +17,7 @@ export const Category = () => {
    <Container>
      
         {Catagories.map(item=>
-            (<CategoryItems items={item} key={item.id} />)
+        <CategoryItems items={item} keys={item.id} />
             )}
    </Container>
   )

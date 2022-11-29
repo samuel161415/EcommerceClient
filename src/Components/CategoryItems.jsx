@@ -2,7 +2,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {mobile} from '../Responsive'
-
+import {Link} from 'react-router-dom'
 const Container=styled.div`
   flex:1;
   margin:3px;
@@ -29,12 +29,21 @@ const Title=styled.h1`
 color:white;
 `
 const Button=styled.button`
-
+ cursor:pointer;
+ padding:10px;
+ border-radius:10px;
+ border:none;
+ &:hover{
+  background-color:#B3FFAE;
+  padding:15px;
+ }
+ 
 `
-export const CategoryItems = ({items}) => {
+export const CategoryItems = ({items,keys}) => {
   return (
-    <Container>
-        <Image src={items.src}/>
+    <Container key={keys} >
+       <Link to={`/products/${items.cat}`}>
+       <Image src={items.src}/>
         <Info>
             <Title>
                 {items.title}
@@ -43,6 +52,7 @@ export const CategoryItems = ({items}) => {
                 BUY NOW
             </Button>
         </Info>
+        </Link>
     </Container>
     )
 }

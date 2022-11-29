@@ -3,7 +3,7 @@ import styled from'styled-components'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
+import {Link} from 'react-router-dom'
 const Info=styled.div`
 opacity:0;
 position:absolute;
@@ -61,17 +61,20 @@ transition:all 0.5s ease;
     transform:scale(1.1 );
 }
 `
-export const Product = ({item}) => {
+export const Product = ({item,keys}) => {
   return (
-    <Container>
+    <Container key={keys}>
         <Circle />
-        <Image src={item.src} />
+        <Image src={item.img} />
         <Info>
             <Icon>
                 <ShoppingCartOutlinedIcon />
             </Icon>
             <Icon>
+                <Link to={`/product/${item._id}`}>
                 <SearchIcon />
+                </Link>
+                
             </Icon>
             <Icon>
                 <FavoriteBorderIcon />

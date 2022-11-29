@@ -9,13 +9,13 @@ import { Footer } from '../Components/Footer'
 function Home() {
   return (
     <div>
-      <Announcement/>
+     <Announcement/>
      <Navbar/>
      <Slider/>
-      <Category />
-      <Products/>
-      <Newsletter />
-      <Footer />
+     <Category />
+     <Products/>
+     <Newsletter />
+     <Footer />
     </div> 
   )
 }

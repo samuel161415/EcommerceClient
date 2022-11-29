@@ -94,7 +94,7 @@ export const Slider = () => {
     }
   return (
     <Container>
-        <Arrow direction="left" onClick={()=>clickHandler("left")}>
+        <Arrow direction="left" onClick={()=>clickHandler("left")} key="1">
           <ArrowLeftOutlinedIcon/>
         </Arrow >
         <Wrapper slideIndex={slideIndex}>
@@ -119,7 +119,7 @@ export const Slider = () => {
            
             
         </Wrapper>
-        <Arrow direction="right" onClick={e=>clickHandler("right")}>
+        <Arrow direction="right" onClick={e=>clickHandler("right")} key="2">
         <ArrowRightOutlinedIcon/>
         </Arrow>
     </Container>
