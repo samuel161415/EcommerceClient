@@ -3,7 +3,9 @@ import axios from 'axios'
 const BASE_URL ='https://sami-ecommerce.herokuapp.com/api'
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
+console.log("user",user)
 const currentUser = user && JSON.parse(user).currentUser;
+console.log("currentUser",currentUser)
 const token = currentUser?.accessToken;
 
 console.log("tokens",token)
