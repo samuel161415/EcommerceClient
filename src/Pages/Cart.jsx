@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux'
 import StripeCheckout from 'react-stripe-checkout'
 import { userRequest } from '../requestMethods'
 import { useNavigate } from 'react-router-dom'
+import {  Modal } from 'antd';
+import {Link} from 'react-router-dom'
 
 const KEY="pk_test_51Ljk6xFst8SiIJX32SRgcX8Xwory5nBfIx8dTtkAYmXZIgW0P9do8zQotbLjmKd4xZ6AZYNM2xapXUvhpCmjpCln00YdK2HvYI";
 const Container=styled.div``
@@ -32,8 +34,9 @@ const TopBottun=styled.button`
   padding:10px;
   font-weight:600;
   cursor:pointer;
-  border:${props=>props.type==="filled"&&"none"};
-  background-color:${props=>props.type==="filled" ?"black":"transparent"};
+  border-radius: 5px;
+  border:${props=>props.type==="filled"?"none":"solid 1px"};
+  background-color:${props=>props.type==="filled" ?"#6ECCAF":"transparent"};
   color:${props=>props.type==="filled"&&"white"};
   ${mobile({padding:"5px",marginRight:"5px"})}
 `
@@ -156,29 +159,37 @@ export const Cart = () => {
   
   const cart=useSelector(state=>state.cart);
   const [stripeToken,setStripeToken]=useState(null)
+  const user=useSelector(state=>state.user)
+  console.log("redux user",user)
   const navigate = useNavigate()
   const onToken=(token)=>{
     setStripeToken(token);
   }
+  useEffect(()=>{
+
+  },[])
 
   useEffect(()=>{
     const makeRequest=async()=>{
+      
       try{
          const res= await userRequest.post('/checkout/payment',{
           tokenId:stripeToken.id,
           amount:cart.total*100,
          
          });
-         navigate('/success',{data:res.data});
+         console.log("successData",res.data)
+         success()
       }
       catch(err){
-
+           error()
+           console.log("ERROR")
       }
       
     }
     stripeToken && cart.total>=1&& makeRequest();
 
-  },[stripeToken,cart.total,navigate])
+  },[stripeToken,cart.total,user])
   //console.log("token",stripeToken)
 
   //console.log("cart",cart);
@@ -191,9 +202,10 @@ export const Cart = () => {
             YOUR BAG
         </Title>
         <Top>
-           <TopBottun  >
+           <Link to="/">
+           <TopBottun  type='none' >
               CONTINUE SHOPPING
-           </TopBottun>
+           </TopBottun></Link>
            <TopTexts>
             <TopText> Shopping Bag(2)</TopText>
             <TopText>Your WishingLis(0)</TopText>
@@ -274,7 +286,7 @@ export const Cart = () => {
               token={onToken}
               stripeKey={KEY}
             >
-              <Button>CHECKOUT NOW</Button>
+              <TopBottun type='filled'>CHECKOUT NOW</TopBottun>
             </StripeCheckout>
           </Summary>
         </Bottom>
@@ -283,3 +295,15 @@ export const Cart = () => {
     </Container>
   )
 }
+const error = () => {
+  Modal.error({
+    title: 'Access Denied',
+    content: "IF YOU DON'T HAVE AN ACCOUNT REGISTER. ELSE LOGIN. AFTER LOGIN PLEASE REFRESH CART PAGE ONCE",
+  });
+};
+
+const success = () => {
+  Modal.success({
+    content: 'Transaction is successful. Thank you!',
+  });
+};

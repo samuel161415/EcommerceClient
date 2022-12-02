@@ -3,24 +3,27 @@ export const sliderItems=[
     {
         id:1,
         title:"CLOTH SALE",
-        desc:"YOU WILL GET MANY CLOTHS AS YOU LIKE JUST WATCH AND CHOOSE WE WILL BRING THE BEST PRODUCT FOR YOU",
-        bg:"#61a5c2",
-        src:"https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+        desc:"YOU WILL GET MANY CLOTHS AS YOU LIKE JUST WATCH AND CHOOSE WE WILL BRING THE BEST PRODUCT FOR YOU. MOST OF OUR PRODUCTS ARE ETHIOPIAN MADE"+
+        "CLOTHS. WE HAVE DIFFERENT CATAGORIES FOR DIFFERENT USERS. JUST CHOOSE AND BUY YOU PRODCT!",
+        bg:"#EFF5F5",
+        src:"https://images.unsplash.com/photo-1582623127508-3bbea01a4bb7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=769&q=80",
         cat:"coat"
     },
     {
         id:2,
         title:"FASHION SALE",
-        desc:"THIS PAGE IS FASHIO COLLECTION. FASHION THAT ARE DESIGNED BY FAMOUS ARTISTS ARE AVAILABE PURCAHSE NOW",
-        bg:"#fff1d0",
-        src:"https://images.unsplash.com/photo-1513094735237-8f2714d57c13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+        desc:"THIS  IS FASHIO COLLECTION. FASHION THAT ARE DESIGNED BY FAMOUS ARTISTS ARE AVAILABE PURCAHSE NOW! AS ALWAYS WE BRING THE BEST PRODUCTS THAT"+
+        "THAT ARE MADE WITH FAMOUS DESIGNERS. WE HAVE TRADITIONAL AND MODERN FASHION COLLECTIONS.",
+        bg:"#EFF5F5",
+        src:"https://images.unsplash.com/photo-1603344797033-f0f4f587ab60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
     },
     {
         id:3,
         title:"SHOE SALE",
-        desc:" WE HAVE SHOES FOE MEN AND WOMEN. PURCHASE NOW",
-        bg:"#d7e3fc",
-        src:"https://images.unsplash.com/photo-1543508282-6319a3e2621f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80"
+        desc:" WE HAVE SHOES FOE MEN AND WOMEN. FROM LEATHER TO COTTON WE HAVE DIFFERENT SHOES. WE ALSO HAVE DIFFERENT"+
+        "CATAGORIES OF SHOES THAT GO WITH THIS TIME. HAVE A LOOK AND PURCHASE NOW!",
+        bg:"#EFF5F5",
+        src:"https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
     }
 ]
 

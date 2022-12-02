@@ -4,7 +4,12 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {Link} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../redux/cartRedux'
+import { useState } from 'react';
+import { useEffect } from 'react';
 const Info=styled.div`
+
 opacity:0;
 position:absolute;
 background-color:rgb(0, 0, 0,0.2);
@@ -46,11 +51,15 @@ z-index:2;
 
 `
 
-const Icon=styled.div`
+const Icon=styled.button`
 width:40px;
 height:40px;
 border-radius:50%;
-background-color:white;
+border:none;
+background-color:${props=>{
+    console.log("props",props.type);
+    return props.type ?"#6ECCAF":"none"
+}};
 display:flex;
 justify-content:center;
 align-items:center;
@@ -62,12 +71,39 @@ transition:all 0.5s ease;
 }
 `
 export const Product = ({item,keys}) => {
+    
+    const [color,setColor]=useState('');
+    const [touched,setTouched]=useState(false);
+    const [favTouched,setFavTouched]=useState(false);
+    const [quantity ,setQuantity]=useState(1);
+    const [size ,setSize]=useState('');
+    const dispatch=useDispatch();
+    const [product,setProduct]=useState(item);
+     
+    useEffect(()=>{
+    
+    },[])
+    const handleClick=()=>{
+        console.log("item",item)
+     setColor(item.color[0]);
+     setQuantity(1);
+     setSize(item.size[0]);
+     console.log("touchedabove",touched)
+     //setProduct(item);
+     setTouched(!touched);
+     console.log("touchedbelow",!touched)
+     !touched&&dispatch(addProduct({...product,quantity,color,size}));
+    }
+    const handleFavorite=()=>{
+        setFavTouched(!favTouched)
+    }
+
   return (
     <Container key={keys}>
         <Circle />
         <Image src={item.img} />
         <Info>
-            <Icon>
+            <Icon onClick={handleClick} type={touched} >
                 <ShoppingCartOutlinedIcon />
             </Icon>
             <Icon>
@@ -75,8 +111,8 @@ export const Product = ({item,keys}) => {
                 <SearchIcon />
                 </Link>
                 
-            </Icon>
-            <Icon>
+            </Icon >
+            <Icon onClick={handleFavorite} type={favTouched} >
                 <FavoriteBorderIcon />
             </Icon>
         </Info>

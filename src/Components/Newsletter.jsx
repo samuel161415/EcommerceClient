@@ -37,7 +37,7 @@ border:none;
 const Button=styled.button`
 width:40px;
 flex:1;
-background-color:teal;
+background-color:#6ECCAF;
 color:white;
 border:1px solid;
 `

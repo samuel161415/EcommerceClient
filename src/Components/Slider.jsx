@@ -43,7 +43,8 @@ padding:30px;
 const Image=styled.img`
   height:80%;
   object-fit:cover;
-  border-radius:50%;
+  opacity:0.7;
+  
 `
 const Title=styled.h1`
 font-size:70px;
@@ -52,7 +53,8 @@ font-size:70px;
 const Desc=styled.p`
   margin:50px 0px;
   font-size:20p x;
-  font-weight:500
+  font-weight:500;
+  line-height:1.6;
 
 `
 const Button=styled.button`
@@ -61,12 +63,13 @@ const Button=styled.button`
  cursor:pointer;
  border-radius:10%;
  border:none;
+ background-color:#6ECCAF;
 `
 
 const Arrow=styled.div`
     width:50px;
     height:50px;
-    background-color:white;
+    background-color:#B2B2B2;
     border-radius:50%; 
     display:flex;
     justify-content:center;

@@ -7,8 +7,20 @@ import { Register } from "./Pages/Register";
 import {BrowserRouter as Router, Route,Routes,Navigate} from 'react-router-dom';
 import Success from "./Pages/Success";
 import { useSelector } from "react-redux";
+import { useEffect,useState } from "react";
+
+ 
 function App() {
-  const user=useSelector(state=> state.user.currentUser);
+
+  const user = useSelector(state=> state.user.currentUser);
+
+  useEffect(()=>{
+    // console.log("Am I excuted")
+    // setUser(JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser)
+   },[user])
+   //console.log("user",user)
+
+
   return (
   
     <Router>

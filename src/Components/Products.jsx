@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Product } from './Product'
-import {popularProducts} from '../Assets/data'
+//import {popularProducts} from '../Assets/data'
 import axios from 'axios'
 import { useState,useEffect } from 'react'
 import { publicRequest } from '../requestMethods'

@@ -34,8 +34,8 @@ const Button=styled.button`
  border-radius:10px;
  border:none;
  &:hover{
-  background-color:#B3FFAE;
-  padding:15px;
+  background-color:#6ECCAF;
+  padding:10px;
  }
  
 `

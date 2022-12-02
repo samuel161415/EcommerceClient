@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { login } from '../redux/apiCalls'
 import {mobile} from '../Responsive'
 import { useDispatch, useSelector } from 'react-redux'
-import { useSelect } from '@mui/base'
 const Container=styled.div`
   width:100vw;
   height:100vh;
@@ -66,6 +65,7 @@ export const Login = () => {
   const {isFetching,error}=useSelector(state=>state.user);
 
   const handleClick=(e)=>{
+    console.log("username",username,"pass")
     e.preventDefault();
         login(dispatch,{username,password})
   }
