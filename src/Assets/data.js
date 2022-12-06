@@ -14,7 +14,7 @@ export const sliderItems=[
         title:"FASHION SALE",
         desc:"THIS  IS FASHIO COLLECTION. FASHION THAT ARE DESIGNED BY FAMOUS ARTISTS ARE AVAILABE PURCAHSE NOW! AS ALWAYS WE BRING THE BEST PRODUCTS THAT"+
         "THAT ARE MADE WITH FAMOUS DESIGNERS. WE HAVE TRADITIONAL AND MODERN FASHION COLLECTIONS.",
-        bg:"#EFF5F5",
+        bg:"#FFFBEB",
         src:"https://images.unsplash.com/photo-1603344797033-f0f4f587ab60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
     },
     {
@@ -22,7 +22,7 @@ export const sliderItems=[
         title:"SHOE SALE",
         desc:" WE HAVE SHOES FOE MEN AND WOMEN. FROM LEATHER TO COTTON WE HAVE DIFFERENT SHOES. WE ALSO HAVE DIFFERENT"+
         "CATAGORIES OF SHOES THAT GO WITH THIS TIME. HAVE A LOOK AND PURCHASE NOW!",
-        bg:"#EFF5F5",
+        bg:"#D8D9CF",
         src:"https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
     }
 ]

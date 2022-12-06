@@ -4,9 +4,11 @@ import {mobile} from '../Responsive'
 const Container=styled.div`
   width:100vw;
   height:100vh;
-  background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),
-   url("https://img.freepik.com/free-photo/cool-young-stylish-sexy-woman-pink-luxury-dress-summer-fashion-trend-chic-style-sunglasses-blue-studio-background-shopping-holding-paper-bags-drinking-coffee-shopaholic_285396-2955.jpg?w=740&t=st=1662730878~exp=1662731478~hmac=25705c38b2ed67ce499fbbe4ac5d804b9380de629947b9bddc0e72af16b1af0b") center ;
-  background-size:cover;
+  // background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),
+  //  url("https://plus.unsplash.com/premium_photo-1661274042309-2a6e8b1d2e81?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80") center ;
+  // background-size:cover;
+  // background-repeat:no-repeat;
+  background-color:#6ECCAF;
   display:flex;
   justify-content:center;
   align-items:center;

@@ -4,6 +4,9 @@ import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
 import {sliderItems} from '../Assets/data';
 import {mobile} from '../Responsive'
+import image1 from '../Assets/slider1.png'
+import image2 from '../Assets/slider2.png'
+import image3 from '../Assets/slider3.png'
 const Container=styled.div`
    height:100vh;
    widht:100%;
@@ -55,6 +58,7 @@ const Desc=styled.p`
   font-size:20p x;
   font-weight:500;
   line-height:1.6;
+  width:60%;
 
 `
 const Button=styled.button`
@@ -101,10 +105,10 @@ export const Slider = () => {
           <ArrowLeftOutlinedIcon/>
         </Arrow >
         <Wrapper slideIndex={slideIndex}>
-            {sliderItems.map(item=>
+            {sliderItems.map((item,index)=>
               <Slide bg={item.bg} key={item.id}>
               <ImageContainer>
-                  <Image src={item.src}/>
+                  <Image src={index+1===1&&image1||index+1===2&&image2||index+1===3&&image3}/>
               </ImageContainer>
               <InfoContainer>
                   <Title>
