@@ -57,8 +57,8 @@ height:40px;
 border-radius:50%;
 border:none;
 background-color:${props=>{
-    console.log("props",props.type);
-    return props.type ?"#6ECCAF":"none"
+    
+    return props?.type ?"#6ECCAF":"none"
 }};
 display:flex;
 justify-content:center;

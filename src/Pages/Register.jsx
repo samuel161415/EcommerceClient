@@ -1,6 +1,10 @@
 import React from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import {mobile} from '../Responsive'
+import {  Modal } from 'antd';
+import { userRequest } from '../requestMethods';
+import { Navigate } from 'react-router-dom';
 const Container=styled.div`
   width:100vw;
   height:100vh;
@@ -46,7 +50,37 @@ const Button=styled.button`
   color:white;
   cursor:pointer;
 `
+const Error=styled.p`
+ color:red;
+ font-style:italic;
+`
 export const Register = () => {
+   const [userData,setUserData]=useState({firstName:'',lastName:'',username:'',email:'',password:'',confirmPassword:''});
+   const [errorr,setError]=useState(false)
+   const [user,setUser]=useState(false)
+   const hadleChange=(e)=>{
+    setUserData({...userData,[e.target.name]:e.target.value})
+   }
+
+   const handleClick=async (e)=>{
+    e.preventDefault()
+    if(!userData.firstName||!userData.lastName||!userData.username||!userData.email||!userData.password||!userData.confirmPassword) error('please fill all inputs properly')
+    else if(userData.password!==userData.confirmPassword) error('password not match')
+    else {
+      
+      const res= await userRequest.post('/auth/register',userData);
+      if(res.status===201) 
+      {
+        console.log('ok')
+      setError(false)
+      setUser(true);
+     
+    }
+      else setError(true)
+      
+    }
+
+   }
   return (
     <Container>
       <Wrapper>
@@ -54,21 +88,30 @@ export const Register = () => {
           CREATE AN ACCOUNT
         </Title>
         <Form>
-          <Input placeholder="first name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+          <Input name="firstName" placeholder="firstName" onChange={hadleChange}/>
+          <Input name="lastName" placeholder="lastName" onChange={hadleChange}/>
+          <Input name="username" placeholder="username" onChange={hadleChange}/>
+          <Input name="email" placeholder="email" onChange={hadleChange}/>
+          <Input name="password" placeholder="password" onChange={hadleChange} minLength={5}/>
+          <Input name="confirmPassword" placeholder="confirmPassword" onChange={hadleChange} minLength={5}/>
+          
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>
+          <Button onClick={handleClick}>
             CREATE
           </Button>
+          {errorr&&<Error>either email or username is already in use</Error>}
+          {user&&<Navigate to='/login' />}
         </Form>
       </Wrapper>
     </Container>
   )
 }
+const error = (val) => {
+  Modal.error({
+    title: 'Invalid Input',
+    content: val,
+  });
+};
